@@ -1,65 +1,50 @@
-import Image from "next/image";
+import DrinkCard from './ui/drinkcard'; // Importerer det kort-design, vi gennemgik før
 
-export default function Home() {
+// DATA FETCHING: En asynkron funktion der henter drinks fra et eksternt API
+async function getDrinks() {
+  // Vi bruger 'fetch' til at kalde TheCocktailDB og leder efter alt med "lemon"
+  const res = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=lemon');
+  const data = await res.json();
+  
+  // Vi returnerer listen af drinks. Hvis der ingen er, returnerer vi et tomt array []
+  return data.drinks || [];
+}
+
+// Selve siden er en 'async' funktion, fordi den skal "vente" på data
+export default async function ShopPage() {
+  // Her kalder vi vores funktion og venter på, at vi har alle drinks
+  const drinks = await getDrinks();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="max-w-[1400px] mx-auto p-5">
+      
+      {/* CENTERERET LOGO SEKTION */}
+      <div className="flex flex-col items-center justify-center mb-16 mt-10">
+        <img 
+          src="/images/lemonslogo.png" 
+          alt="Lemons! Logo" 
+          /* 'drop-shadow': Giver logoet en flot skygge, så det "svæver"
+             'hover:scale-105': Gør logoet lidt større når man holder musen over */
+          className="h-[180px] w-auto drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)] transition-transform hover:scale-105"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        <p className="text-white text-lg font-medium mt-4 tracking-widest uppercase opacity-80">
+          Freshly Squeezed Since 2026
+        </p>
+      </div>
+
+      {/* DRINK GRID: Her styrer vi hvor mange drinks der vises ved siden af hinanden 
+          - 'grid-cols-1': 1 drink ad gangen på små mobiler
+          - 'sm:grid-cols-2': 2 drinks på store mobiler
+          - 'md:grid-cols-3': 3 drinks på tablets
+          - 'lg:grid-cols-4': 4 drinks på bærbare
+          - 'xl:grid-cols-5': 5 drinks på store computerskærme
+      */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 px-4 md:px-10">
+        {/* Vi løber gennem 'drinks' arrayet og sender data for hver drink ind i et DrinkCard */}
+        {drinks.map((drink: any) => (
+          <DrinkCard key={drink.idDrink} drink={drink} />
+        ))}
+      </div>
     </div>
   );
 }

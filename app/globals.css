@@ -20,7 +20,16 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  color: rgb(var(--foreground-rgb));
   font-family: Arial, Helvetica, sans-serif;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.418), rgba(43, 42, 42, 0.6)), 
+    url('/images/lemons.png');
+  
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  
+  min-height: 100vh;
 }
