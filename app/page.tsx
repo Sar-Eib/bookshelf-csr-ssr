@@ -1,50 +1,47 @@
-import DrinkCard from './ui/drinkcard'; // Importerer det kort-design, vi gennemgik før
+import Link from 'next/link';
 
-// DATA FETCHING: En asynkron funktion der henter drinks fra et eksternt API
-async function getDrinks() {
-  // Vi bruger 'fetch' til at kalde TheCocktailDB og leder efter alt med "lemon"
-  const res = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=lemon');
-  const data = await res.json();
-  
-  // Vi returnerer listen af drinks. Hvis der ingen er, returnerer vi et tomt array []
-  return data.drinks || [];
-}
-
-// Selve siden er en 'async' funktion, fordi den skal "vente" på data
-export default async function ShopPage() {
-  // Her kalder vi vores funktion og venter på, at vi har alle drinks
-  const drinks = await getDrinks();
-
+export default function Home() {
   return (
-    <div className="max-w-[1400px] mx-auto p-5">
-      
-      {/* CENTERERET LOGO SEKTION */}
-      <div className="flex flex-col items-center justify-center mb-16 mt-10">
-        <img 
-          src="/images/lemonslogo.png" 
-          alt="Lemons! Logo" 
-          /* 'drop-shadow': Giver logoet en flot skygge, så det "svæver"
-             'hover:scale-105': Gør logoet lidt større når man holder musen over */
-          className="h-[180px] w-auto drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)] transition-transform hover:scale-105"
-        />
-        <p className="text-white text-lg font-medium mt-4 tracking-widest uppercase opacity-80">
-          Freshly Squeezed Since 2026
+    <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 font-sans">
+      <header className="text-center max-w-2xl mb-12">
+        <h1 className="text-4xl md:text-5xl font-serif font-bold text-stone-800 mb-4">
+          📖 Den Hyggelige Bogreol
+        </h1>
+        <p className="text-stone-600 text-lg">
+          Eksamensprototype: En praktisk sammenligning af Client-Side Rendering (CSR) med Custom Hooks vs. Server-Side Rendering (SSR).
         </p>
-      </div>
+      </header>
+      
+      <div className="flex flex-col md:flex-row gap-8 max-w-4xl w-full justify-center">
+        
+        {/* CSR Kort */}
+        <div className="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 flex-1 flex flex-col justify-between transition-transform hover:scale-[1.01]">
+          <div>
+            <span className="text-4xl">💻</span>
+            <h2 className="text-2xl font-serif font-semibold text-amber-900 mt-4 mb-3">Klientside (CSR)</h2>
+            <p className="text-stone-600 text-sm leading-relaxed mb-6">
+              Data hentes i browseren via vores eget <strong className="text-amber-800">Custom Hook</strong> efter siden er loadet. Brugeren oplever en kort loading-tilstand.
+            </p>
+          </div>
+          <Link href="/bookshelf-csr" className="w-full text-center py-3 bg-amber-800 hover:bg-amber-900 text-white font-medium rounded-xl transition-colors">
+            Åbn CSR Reol ➡️
+          </Link>
+        </div>
+        
+        {/* SSR Kort */}
+        <div className="bg-white p-8 rounded-2xl shadow-sm border border-emerald-100 flex-1 flex flex-col justify-between transition-transform hover:scale-[1.01]">
+          <div>
+            <span className="text-4xl">🌍</span>
+            <h2 className="text-2xl font-serif font-semibold text-emerald-950 mt-4 mb-3">Serverside (SSR)</h2>
+            <p className="text-stone-600 text-sm leading-relaxed mb-6">
+              Next.js bager HTML'en 100% færdig på serveren inden afsendelse. Siden popper op med det samme, hvilket giver maksimal ydeevne og optimal <strong className="text-emerald-800">SEO</strong>.
+            </p>
+          </div>
+          <Link href="/bookshelf-ssr" className="w-full text-center py-3 bg-emerald-800 hover:bg-emerald-900 text-white font-medium rounded-xl transition-colors">
+            Åbn SSR Reol ➡️
+          </Link>
+        </div>
 
-      {/* DRINK GRID: Her styrer vi hvor mange drinks der vises ved siden af hinanden 
-          - 'grid-cols-1': 1 drink ad gangen på små mobiler
-          - 'sm:grid-cols-2': 2 drinks på store mobiler
-          - 'md:grid-cols-3': 3 drinks på tablets
-          - 'lg:grid-cols-4': 4 drinks på bærbare
-          - 'xl:grid-cols-5': 5 drinks på store computerskærme
-      */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 px-4 md:px-10">
-        {/* Vi løber gennem 'drinks' arrayet og sender data for hver drink ind i et DrinkCard */}
-        {drinks.map((drink: any) => (
-          <DrinkCard key={drink.idDrink} drink={drink} />
-        ))}
       </div>
     </div>
-  );
-}
+)};
