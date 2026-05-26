@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 Personlig bogreol – React og Next.js Eksamensprojekt
 
-## Getting Started
+Dette projekt er en interaktiv, responsiv bogreol inspireret af det klassiske Apple iBooks-design. Projektet er udviklet i **Next.js (App Router)** og **Tailwind CSS**, med det formål at demonstrere forskellen på **Client-Side Rendering (CSR)** og **Server-Side Rendering (SSR)**.
 
-First, run the development server:
+## 🛠️ Projektets Arkitektur & UI
+- **Dynamisk CSS-Reol**: Hylderne er kodet i 3D "Dark Oak"-træstil ved hjælp af Tailwind CSS.
+- **Responsivt Design**: Systemet er responsivt og bog-grid'et tilpasser sig automatisk ift. skærmstørrelsen.
+- **Billedhåndtering**: Bogomslagene indlæses dynamisk via `bg-cover bg-center` i forhold til tilgængelig data. Der er et `default.png` for bøger uden omslag.
+
+---
+
+## 🔬 CSR vs. SSR (Eksamensfokus)
+
+Applikationen er opdelt i to primære ruter for at demonstrere rendering-metoder i Next.js:
+
+### 1. Client-Side Rendering (CSR) – `/bookshelf-csr`
+- **Metode**: Henter data i browseren via et Custom Hook (`useFetchBooks`).
+- **Karakteristika**: Siden viser en synlig loading-state (med simuleret netværksforsinkelse på 1,2 sekunder), mens data hentes. 
+
+### 2. Server-Side Rendering (SSR) – `/bookshelf-ssr`
+- **Metode**: Henter data direkte på serveren i en asynkron Server Component (`getSSRBooks`).
+- **Karakteristika**: Siden er fuldstændig præ-renderet på serveren. Indholdet og bogreolen popper op med det samme ved besøg eller genindlæsning uden nogen loading-skærm.
+
+---
+
+## Opsætning lokalt
+
+Installér projektets dependencies og starte dev serveren:
 
 ```bash
+npm install
 npm run dev
-# or
+# eller
 yarn dev
-# or
+# eller
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Åbn http://localhost:3000 i browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Projektet kan også ses via /INDSÆT LINK TIL DEPLOYMENT
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Projektstruktur
+- **app/page.tsx** – Hovedmenu/forside med links til de to test-sider.
 
-## Learn More
+- **app/bogreol-csr/page.tsx** – Bogreolen renderet via klientsiden (CSR).
 
-To learn more about Next.js, take a look at the following resources:
+- **app/bogreol-ssr/page.tsx** – Bogreolen renderet via serveren (SSR).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **app/hooks/useFetchBooks.ts** – Custom hook, der simulerer API-kald til CSR-siden.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **public/covers/** – Mappen hvor bøgernes baggrundsbilleder/omslag er placeret.
 
-## Deploy on Vercel
+🎨 Anvendte teknologier
+**Framework:** Next.js (React-baseret framework)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Styling:** Tailwind CSS (Utility-first CSS)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Sprog:** TypeScript (Stærkt typet JavaScript)
