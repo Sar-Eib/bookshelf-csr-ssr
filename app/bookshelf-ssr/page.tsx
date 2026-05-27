@@ -10,7 +10,6 @@ interface Book {
 
 // En asynkron funktion der simulerer hentning af data direkte på serveren (f.eks. fra en database)
 async function getSSRBooks(): Promise<Book[]> {
-  // Ingen useEffect eller useState nødvendig her!
   return [
     { id: 1, title: 'Harry Potter & De Vises Sten', author: 'J.K. Rowling', coverUrl: '/covers/harrypotter.jpg' },
     { id: 2, title: 'Hobbitten', author: 'J.R.R. Tolkien', coverUrl: '/covers/thehobbit.png' },
@@ -25,7 +24,7 @@ async function getSSRBooks(): Promise<Book[]> {
   ];
 }
 
-// Selve komponenten er asynkron (async), fordi det er en Next.js Server Component
+// Selve komponenten er asynkron (async)
 export default async function BogreolSSR() {
   // Serveren venter på dataen her, inden den overhovedet går i gang med at rendere HTML
   const books = await getSSRBooks();

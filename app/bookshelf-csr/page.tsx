@@ -20,7 +20,7 @@ export default function BogreolCSR() {
     );
   }
 
-  // 2. Præsentationslag (Når data er klar - iBooks Style)
+  // 2. Præsentationslag (Når data er klar)
   return (
     <div className="min-h-screen bg-[#f3e1ce] p-6 md:p-12 font-sans relative overflow-hidden">
       {/* Dekorativ baggrundseffekt for at gøre det mere hyggeligt (som en væg bag reolen) */}

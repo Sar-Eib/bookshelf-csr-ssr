@@ -34,7 +34,7 @@ export default function Home() {
             <span className="text-4xl">🌍</span>
             <h2 className="text-2xl font-serif font-semibold text-emerald-950 mt-4 mb-3">Serverside (SSR)</h2>
             <p className="text-stone-600 text-sm leading-relaxed mb-6">
-              Next.js bager HTML'en 100% færdig på serveren inden afsendelse. Siden popper op med det samme, hvilket giver maksimal ydeevne og optimal <strong className="text-emerald-800">SEO</strong>.
+              Next.js laver HTML'en 100% færdig på serveren inden afsendelse. Siden popper op med det samme, hvilket giver maksimal ydeevne og optimal <strong className="text-emerald-800">SEO</strong>.
             </p>
           </div>
           <Link href="/bookshelf-ssr" className="w-full text-center py-3 bg-emerald-800 hover:bg-emerald-900 text-white font-medium rounded-xl transition-colors">
